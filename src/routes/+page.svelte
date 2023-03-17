@@ -1,19 +1,21 @@
 <script>
-    export let data;
-    import MovieTile  from './MovieTile.svelte';
+    import Logo from "../components/Logo.svelte";
+    import SearchBar from "../components/SearchBar.svelte";
 </script>
 
 <div class="container">
-{#each data.movies as movie}
-    <MovieTile img={movie.poster_path} title={movie.title} date={movie.release_date}/>
-{/each}
+    <Logo />
+    <a href="/movies"><h1>Browse All Movies!</h1></a>
+    <SearchBar />
 </div>
 
 <style>
     .container {
+        width: 100%;
+        height: 100%;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
 </style>
