@@ -2,7 +2,7 @@ import { PUBLIC_API_KEY } from '$env/static/public';
 
 export type Genres = Map<number, string>;
 
-export async function getGenres(): Promise<Genres> {
+export async function genGenres(): Promise<Genres> {
     const apiResponse = await fetch(getGenresApi());
     const apiData = await apiResponse.json();
     const genres = new Map();

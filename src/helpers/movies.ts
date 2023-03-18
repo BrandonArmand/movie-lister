@@ -1,5 +1,5 @@
 import { PUBLIC_API_KEY } from '$env/static/public';
-import { getGenres, mapGenres } from './genres';
+import { genGenres, mapGenres } from './genres';
 
 export interface Movie {
   "adult": boolean,
@@ -19,7 +19,7 @@ export interface Movie {
   "vote_count": number
 }
 
-export async function getMovies(query: string | null = null, page: number | null = null): Promise<Movie[]> {
+export async function genMovies(query: string | null = null, page: number | null = null): Promise<Movie[]> {
   const PAGE_COUNT_DEFAULT = 3;
   const movies: Movie[] = [];
   const apiUrls: string[] = [];
@@ -39,7 +39,7 @@ export async function getMovies(query: string | null = null, page: number | null
 
   const apiResponses = await Promise.all(apiUrls.map((url) => fetch(url)));
   const apiData = await Promise.all(apiResponses.map((response) => response.json()));
-  const genreMap = await getGenres();
+  const genreMap = await genGenres();
 
   apiData.forEach((data) => {
     movies.push(...data.results);

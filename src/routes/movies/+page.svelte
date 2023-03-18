@@ -1,7 +1,7 @@
 <script lang="ts">
     export let data;
     import MovieTile from "../../components/MovieTile.svelte";
-    import { getMovies } from "../../helpers/movies";
+    import { genMovies } from "../../helpers/movies";
 
     let isLoading = false;
 
@@ -11,7 +11,7 @@
         if (offset <= 100 && !isLoading) {
             isLoading = true;
             const nextPage = Math.floor(data.movies.length / 20 + 1);
-            await getMovies(data.query, nextPage).then((nextMovies) => {
+            await genMovies(data.query, nextPage).then((nextMovies) => {
                 data.movies = [...data.movies, ...nextMovies];
                 isLoading = false;
             });
