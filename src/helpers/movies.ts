@@ -63,6 +63,15 @@ export async function genMovieCast(movieId: string): Promise<any> {
   return movie;
 }
 
+export async function genSimilarMovies(movieId: string): Promise<any> {
+  const movies = await fetch(getSimilarMoviesApi(movieId)).then((data) => data.json());
+  const genreMap = await genGenres();
+  movies.results.forEach((movie: any) => {
+    movie.genres = mapGenres(movie.genre_ids, genreMap);
+  })
+  return movies;
+}
+
 function getMoviesApi(page: number = 1): string {
   return `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_KEY}&primary_release_date.gte=1995-01-01&include_adult=false&page=${page}`;
 }
@@ -77,4 +86,8 @@ function getMovieDetailsApi(movieId: string): string {
 
 function getMovieCastApi(movieId: string): string {
   return `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${PUBLIC_API_KEY}`;
+}
+
+function getSimilarMoviesApi(movieId: string): string {
+  return `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${PUBLIC_API_KEY}`;
 }

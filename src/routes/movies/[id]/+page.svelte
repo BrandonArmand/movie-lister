@@ -1,6 +1,8 @@
 <script lang="ts">
+    import Recommendations from "../../../components/Recommendations.svelte";
+
     export let data: any;
-    const { details, cast } = data;
+    const { details, cast, recommendations } = data;
     let director = "";
     cast.crew.forEach((credit: any) => {
         if (credit.department === "Directing") {
@@ -58,9 +60,20 @@
             Release: {new Date(details.release_date).toLocaleDateString()}
         </p>
     </div>
+    <div class="recommendations">
+        <h3>Similar Movies</h3>
+        <Recommendations movies={recommendations.results.splice(0, 6)} />
+    </div>
 </div>
 
 <style>
+    .recommendations {
+        width: 75%;
+    }
+    .recommendations h3 {
+        margin-top: 0rem;
+        text-align: end;
+    }
     .container {
         display: flex;
         flex-direction: row;
@@ -111,6 +124,7 @@
     .genres {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         width: 100%;
     }
     .genres h3 {
