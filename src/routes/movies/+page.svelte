@@ -22,6 +22,7 @@
 <div class="container" on:scroll={loadMovies}>
     {#each data.movies as movie}
         <MovieTile
+            id={movie.id}
             img={movie.poster_path}
             title={movie.title}
             date={movie.release_date}

@@ -1,27 +1,30 @@
 <script lang="ts">
+    export let id: any;
     export let img: string;
     export let title: string;
     export let date: string;
     export let genres: string[];
 </script>
 
-<div class="tile">
-    <div class="image">
-        <img
-            src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${img}`}
-            alt={title}
-        />
-    </div>
-    <div class="details">
-        <h4 {title}>{title}</h4>
-        <div class="genres" title={genres.join(" | ")}>
-            {#each genres.slice(0, 2) as genre}
-                <p>{genre}</p>
-            {/each}
+<a href={`/movies/${id}`}>
+    <div class="tile">
+        <div class="image">
+            <img
+                src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${img}`}
+                alt={title}
+            />
         </div>
-        <p>{date}</p>
+        <div class="details">
+            <h4 {title}>{title}</h4>
+            <div class="genres" title={genres.join(" | ")}>
+                {#each genres.slice(0, 2) as genre}
+                    <p>{genre}</p>
+                {/each}
+            </div>
+            <p>{date}</p>
+        </div>
     </div>
-</div>
+</a>
 
 <style>
     .tile {
@@ -59,6 +62,7 @@
     .details h4 {
         overflow: hidden;
         height: 50%;
+        color: black;
     }
 
     .details h4,
@@ -81,5 +85,14 @@
     .genres p {
         font-size: 0.8rem;
         font-weight: 600;
+    }
+
+    a {
+        text-decoration: none;
+        transition: all 0.1s ease;
+    }
+
+    a:hover {
+        transform: translateY(-5%);
     }
 </style>
