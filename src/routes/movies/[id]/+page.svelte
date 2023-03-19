@@ -1,23 +1,32 @@
 <script lang="ts">
     import Recommendations from "../../../components/Recommendations.svelte";
-
     export let data: any;
-    const { details, cast, recommendations } = data;
+
+    $: ({ details, cast, recommendations } = data);
     let director = "";
-    cast.crew.forEach((credit: any) => {
+    let notableCast: Record<string, string>[] = [];
+    let rating: string[] = [];
+
+    $: if (data) {
+        notableCast = [];
+        rating = [];
+    }
+
+    $: cast.crew.forEach((credit: any) => {
         if (credit.department === "Directing") {
             director = credit.name;
         }
     });
 
-    let notableCast: Record<string, string>[] = [];
-    cast.cast.slice(0, 4).forEach((actor: any) => {
-        notableCast.push({ name: actor.name, character: actor.character });
+    $: cast.cast.slice(0, 4).forEach((actor: any) => {
+        notableCast = [
+            ...notableCast,
+            { name: actor.name, character: actor.character },
+        ];
     });
 
-    let rating: string[] = [];
-    for (let i = 0; i < details.vote_average / 2; i++) {
-        rating.push("/star.svg");
+    $: for (let i = 0; i < details.vote_average / 2; i++) {
+        rating = [...rating, "/star.svg"];
     }
 </script>
 
@@ -45,7 +54,7 @@
             {#each notableCast as actor}
                 <div class="actor-group">
                     <p>{actor.name}</p>
-                    <p>as</p>
+                    <p class="as">as</p>
                     <p>{actor.character}</p>
                 </div>
             {/each}
@@ -150,5 +159,10 @@
     }
     .actor-group {
         margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+    .as {
+        line-height: 6px;
+        color: #333;
     }
 </style>

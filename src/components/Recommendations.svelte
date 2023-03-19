@@ -23,9 +23,8 @@
         flex-wrap: wrap;
         justify-content: space-evenly;
         width: 100%;
-        height: 300px;
-        border: solid 2px black;
-        border-radius: 10px;
-        border-bottom: none;
+        height: auto;
+        border-top: solid 2px black;
+        border-radius: 10px 10px 0 0;
     }
 </style>
