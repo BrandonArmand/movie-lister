@@ -1,33 +1,17 @@
 <script lang="ts">
+    import CastSection from "../../../components/CastSection.svelte";
     import Recommendations from "../../../components/Recommendations.svelte";
+    import StarRating from "../../../components/StarRating.svelte";
     export let data: any;
 
     $: ({ details, cast, recommendations } = data);
     let director = "";
-    let notableCast: Record<string, string>[] = [];
-    let rating: string[] = [];
-
-    $: if (data) {
-        notableCast = [];
-        rating = [];
-    }
 
     $: cast.crew.forEach((credit: any) => {
         if (credit.department === "Directing") {
             director = credit.name;
         }
     });
-
-    $: cast.cast.slice(0, 4).forEach((actor: any) => {
-        notableCast = [
-            ...notableCast,
-            { name: actor.name, character: actor.character },
-        ];
-    });
-
-    $: for (let i = 0; i < details.vote_average / 2; i++) {
-        rating = [...rating, "/star.svg"];
-    }
 </script>
 
 <div class="container">
@@ -38,27 +22,14 @@
         />
     </div>
     <div class="details">
-        <div class="rating">
-            <p>{rating.length} / 5</p>
-            {#each rating as star}
-                <img src={star} alt="" width="20px" />
-            {/each}
-        </div>
+        <StarRating vote_average={details.vote_average / 2} />
         <div class="title">
             <h1>{details.title}<span>({details.original_language})</span></h1>
         </div>
         <h4>Directed By: {director}</h4>
         <p>{details.overview}</p>
         <h3 style="text-align: center; width: 100%">Cast</h3>
-        <div class="cast">
-            {#each notableCast as actor}
-                <div class="actor-group">
-                    <p>{actor.name}</p>
-                    <p class="as">as</p>
-                    <p>{actor.character}</p>
-                </div>
-            {/each}
-        </div>
+        <CastSection cast={cast.cast} />
         <hr />
         <div class="genres">
             {#each details.genres as genre}
@@ -108,6 +79,9 @@
     }
     .image img {
         max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .details {
         width: 30%;
@@ -138,31 +112,5 @@
     }
     .genres h3 {
         margin-right: 1rem;
-    }
-    .rating {
-        display: flex;
-    }
-    .rating p {
-        margin: 0;
-        margin-right: 0.5rem;
-    }
-    .cast {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        text-align: center;
-    }
-    .cast p {
-        margin: 0;
-    }
-    .actor-group {
-        margin-right: 1rem;
-        margin-bottom: 1rem;
-    }
-    .as {
-        line-height: 6px;
-        color: #333;
     }
 </style>

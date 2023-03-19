@@ -1,6 +1,11 @@
 <script lang="ts">
     import MovieTile from "./MovieTile.svelte";
 
+    // This takes in a list of movies; however,
+    // it would be better to take in an id and always
+    // generate a list, but for the sake of keeping
+    // as much server rendered as possible, it will
+    // stay this way.
     export let movies: Record<any, any>[];
 </script>
 
