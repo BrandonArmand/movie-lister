@@ -2,6 +2,7 @@
     import CastSection from "../../../components/CastSection.svelte";
     import Recommendations from "../../../components/Recommendations.svelte";
     import StarRating from "../../../components/StarRating.svelte";
+    import WatchlistIcon from "../../../components/WatchlistIcon.svelte";
     export let data: any;
 
     $: ({ details, cast, recommendations } = data);
@@ -16,6 +17,7 @@
 
 <div class="container">
     <div class="image">
+        <WatchlistIcon {...data.details} img={data.poster_path} />
         <img
             src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${details.poster_path}`}
             alt={"No image found."}
@@ -71,6 +73,7 @@
         font-weight: 600;
     }
     .image {
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;

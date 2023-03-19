@@ -1,4 +1,4 @@
-import { genGenres } from '../../helpers/genres';
+import { genGenres } from '../helpers/genres';
 
 export async function load() {
     return {
