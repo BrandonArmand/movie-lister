@@ -5,8 +5,7 @@
 
 <div class="container">
     <Logo />
-    <a href="/movies"><h1>Browse All Movies!</h1></a>
-    <SearchBar />
+    <a href="/movies"><h1>Get Started!</h1></a>
 </div>
 
 <style>

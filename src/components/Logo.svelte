@@ -1,5 +1,5 @@
 <h1>
-    <a href="/">
+    <a href="/movies">
         <img src="/movie-clapperboard-svgrepo-com.svg" alt="logo" />
         MovieApp
     </a>

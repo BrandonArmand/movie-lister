@@ -19,20 +19,20 @@ export interface Movie {
   "vote_count": number
 }
 
-export async function genMovies(query: string | null = null, page: number | null = null): Promise<Movie[]> {
+export async function genMovies(query: string = '', page: number | null = null, genre: string = ''): Promise<Movie[]> {
   const PAGE_COUNT_DEFAULT = 3;
   const movies: Movie[] = [];
   const apiUrls: string[] = [];
 
   if (page) {
     apiUrls.push(
-      query ? searchMoviesApi(query, page) : getMoviesApi(page)
+      query ? searchMoviesApi(query, page) : getMoviesApi(page, genre)
     );
   }
   else {
     for (let i = 1; i < PAGE_COUNT_DEFAULT; i++) {
       apiUrls.push(
-        query ? searchMoviesApi(query, i) : getMoviesApi(i)
+        query ? searchMoviesApi(query, i) : getMoviesApi(i, genre)
       );
     }
   }
@@ -72,8 +72,8 @@ export async function genSimilarMovies(movieId: string): Promise<any> {
   return movies;
 }
 
-function getMoviesApi(page: number = 1): string {
-  return `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_KEY}&primary_release_date.gte=1995-01-01&include_adult=false&page=${page}`;
+function getMoviesApi(page: number = 1, genre: string = ''): string {
+  return `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_KEY}&primary_release_date.gte=1995-01-01&include_adult=false&page=${page}&with_genres=${genre}`;
 }
 
 function searchMoviesApi(query: string, page: number = 1): string {

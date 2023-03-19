@@ -11,7 +11,11 @@
         if (offset <= 100 && !isLoading) {
             isLoading = true;
             const nextPage = Math.floor(data.movies.length / 20 + 1);
-            await genMovies(data.query, nextPage).then((nextMovies) => {
+            await genMovies(
+                data.params.query,
+                nextPage,
+                data.params.genre
+            ).then((nextMovies) => {
                 data.movies = [...data.movies, ...nextMovies];
                 isLoading = false;
             });
