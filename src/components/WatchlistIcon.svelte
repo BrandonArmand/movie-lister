@@ -33,9 +33,15 @@
 
 <button class="watchlist" on:click={onClick}>
     <img src={url} width="18px" height="18px" alt="" />
+    {#if !isInSessionStorage}
+        <p>Watchlist</p>
+    {/if}
 </button>
 
 <style>
+    p {
+        margin-left: 5px;
+    }
     .watchlist {
         cursor: pointer;
         display: flex;
@@ -44,7 +50,7 @@
         align-items: center;
         background-color: whitesmoke;
         z-index: 2000;
-        width: 25px;
+        width: fit-content;
         height: 25px;
         position: absolute;
         top: 15px;

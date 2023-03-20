@@ -6,9 +6,11 @@ export async function genGenres(): Promise<Genres> {
     const apiResponse = await fetch(getGenresApi());
     const apiData = await apiResponse.json();
     const genres = new Map();
-    apiData.genres.forEach((genre: any) => {
-        genres.set(genre.id, genre.name);
-    })
+    if (apiData) {
+        apiData.genres.forEach((genre: any) => {
+            genres.set(genre.id, genre.name);
+        })
+    }
 
     return genres;
 }

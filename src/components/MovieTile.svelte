@@ -103,6 +103,6 @@
     }
 
     .container:hover {
-        transform: translateY(-5%);
+        transform: translateY(-10px);
     }
 </style>

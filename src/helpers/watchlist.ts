@@ -21,7 +21,7 @@ export function addToWatchlist(sessionStorage: any, data: any) {
     );
 }
 
-// This just removes from lookup for efficiency.
+// This just removes from the lookup for efficiency.
 export function removeFromWatchlist(sessionStorage: any, id: any) {
     if (!sessionStorage.getItem(WATCHLIST_KEY)) {
         sessionStorage.setItem(WATCHLIST_LOOKUP_KEY, JSON.stringify({}));
@@ -29,7 +29,6 @@ export function removeFromWatchlist(sessionStorage: any, id: any) {
 
     const watchlistLookup: Record<string, 1> = JSON.parse(sessionStorage.getItem(WATCHLIST_LOOKUP_KEY) ?? "{}");
     delete watchlistLookup[id];
-    console.log(watchlistLookup)
     sessionStorage.setItem(
         WATCHLIST_LOOKUP_KEY,
         JSON.stringify(watchlistLookup)
@@ -48,6 +47,7 @@ export function getWatchlist(sessionStorage: any): any[] {
         }
         dedup.add(movie.id);
     });
+    sessionStorage.setItem(WATCHLIST_KEY, JSON.stringify(output));
 
     return output;
 }
