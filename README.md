@@ -6,6 +6,7 @@ https://illustrious-elf-b43760.netlify.app/
 ## Preview
 
 https://user-images.githubusercontent.com/27185256/226262166-9a52b280-0998-4f8e-a0a8-d91166f270eb.mp4
+(there is a bug with watchlist icon's state in this video that has since been resolved)
 
 ## Tech
 1. SvelteKit w/ Vite
