@@ -6,8 +6,8 @@
     export let data: any;
 
     $: ({ details, cast, recommendations } = data);
+    $: genreList = details.genres.map((a: any) => a.name);
     let director = "";
-
     $: cast.crew.forEach((credit: any) => {
         if (credit.department === "Directing") {
             director = credit.name;
@@ -17,7 +17,13 @@
 
 <div class="container">
     <div class="image">
-        <WatchlistIcon {...data.details} img={data.poster_path} />
+        <WatchlistIcon
+            title={details.title}
+            id={details.id}
+            genres={genreList}
+            img={details.poster_path}
+            date={details.release_date}
+        />
         <img
             src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${details.poster_path}`}
             alt={"No image found."}
@@ -34,8 +40,8 @@
         <CastSection cast={cast.cast} />
         <hr />
         <div class="genres">
-            {#each details.genres as genre}
-                <h3>{genre.name}</h3>
+            {#each genreList as genre}
+                <h3>{genre}</h3>
             {/each}
         </div>
         <p style="text-align: end; width: 100%">

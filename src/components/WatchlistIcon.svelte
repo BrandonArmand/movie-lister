@@ -1,10 +1,11 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { afterNavigate } from "$app/navigation";
     export let id: any;
     export let img: string;
     export let title: string;
     export let date: string;
     export let genres: string[];
+    // export let isInSessionStorage = false;
     import {
         addToWatchlist,
         isInWatchlist,
@@ -26,7 +27,7 @@
         isInSessionStorage = !isInSessionStorage;
     }
 
-    onMount(() => {
+    afterNavigate(() => {
         isInSessionStorage = isInWatchlist(sessionStorage, id);
     });
 </script>
